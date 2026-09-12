@@ -704,7 +704,7 @@ const Landing = () => {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+          <div className="flex flex-wrap justify-center gap-6">
             {(() => {
               const fallbackAvatars = [avatarSarah, avatarMarcus, avatarPriya, "https://i.pravatar.cc/300?img=33", "https://i.pravatar.cc/300?img=47"];
               return testimonialsContent.items.map((testimonial, i) => {
@@ -712,6 +712,7 @@ const Landing = () => {
                 return (
                   <motion.div
                     key={`${testimonial.name}-${i}`}
+                    className="w-[224px] shrink-0"
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.15 }}
