@@ -704,7 +704,7 @@ const Landing = () => {
             </h2>
           </motion.div>
 
-          <div className="flex gap-6 overflow-x-auto pb-4">
+          <div className="flex flex-wrap justify-center gap-6">
             {(() => {
               const fallbackAvatars = [avatarSarah, avatarMarcus, avatarPriya, "https://i.pravatar.cc/300?img=33", "https://i.pravatar.cc/300?img=47"];
               return testimonialsContent.items.map((testimonial, i) => {
