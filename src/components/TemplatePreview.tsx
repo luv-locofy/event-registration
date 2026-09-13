@@ -23,6 +23,7 @@ const TemplatePreview = (p: TemplatePreviewProps) => {
 
   return (
     <div
+      data-template={p.template || "split"}
       style={{
         boxSizing: "border-box",
         width: "100%",
