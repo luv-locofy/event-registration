@@ -489,7 +489,7 @@ const Landing = () => {
               </motion.div>
               <h1 className="text-5xl sm:text-6xl lg:text-[68px] 2xl:text-[80px] font-display tracking-[-0.035em] leading-[0.95] text-foreground mb-7" style={{ fontWeight: titleWeight }}>
                 {hero.headline_prefix}{" "}
-                <span className="inline-block relative">
+                <span className="inline-grid justify-items-center">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={rotatingWords[wordIndex]}
@@ -497,13 +497,13 @@ const Landing = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -16 }}
                       transition={{ duration: 0.35 }}
-                      className="text-primary inline-block italic"
+                      className="text-primary italic text-center col-start-1 row-start-1"
                     >
                       {rotatingWords[wordIndex]}
                     </motion.span>
                   </AnimatePresence>
                   {/* Invisible longest word to reserve space */}
-                  <span className="invisible inline-block h-0 overflow-hidden" aria-hidden="true">
+                  <span className="invisible h-0 overflow-hidden col-start-1 row-start-1" aria-hidden="true">
                     {rotatingWords.reduce((a, b) => (a.length >= b.length ? a : b), "")}
                   </span>
                 </span>
