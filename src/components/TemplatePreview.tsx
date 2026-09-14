@@ -45,7 +45,7 @@ const TemplatePreview = (p: TemplatePreviewProps) => {
             <img
               src={p.flyerUrl}
               alt="Event flyer"
-              style={{ width: 48, height: 48, flex: "0 0 auto", borderRadius: 6, objectFit: "cover" }}
+              style={{ width: 72, height: 72, flex: "0 0 auto", borderRadius: 6, objectFit: "cover" }}
             />
           )}
           <div style={{ minWidth: 0 }}>
