@@ -489,7 +489,7 @@ const Landing = () => {
               </motion.div>
               <h1 className="text-5xl sm:text-6xl lg:text-[68px] 2xl:text-[80px] font-display tracking-[-0.035em] leading-[0.95] text-foreground mb-7" style={{ fontWeight: titleWeight }}>
                 {hero.headline_prefix}{" "}
-                <span className="inline-block relative">
+                <span className="inline-grid justify-items-center">
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={rotatingWords[wordIndex]}
@@ -497,13 +497,13 @@ const Landing = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -16 }}
                       transition={{ duration: 0.35 }}
-                      className="text-primary inline-block italic"
+                      className="text-primary italic text-center col-start-1 row-start-1"
                     >
                       {rotatingWords[wordIndex]}
                     </motion.span>
                   </AnimatePresence>
                   {/* Invisible longest word to reserve space */}
-                  <span className="invisible inline-block h-0 overflow-hidden" aria-hidden="true">
+                  <span className="invisible h-0 overflow-hidden col-start-1 row-start-1" aria-hidden="true">
                     {rotatingWords.reduce((a, b) => (a.length >= b.length ? a : b), "")}
                   </span>
                 </span>
@@ -704,7 +704,7 @@ const Landing = () => {
             </h2>
           </motion.div>
 
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
             {(() => {
               const fallbackAvatars = [avatarSarah, avatarMarcus, avatarPriya, "https://i.pravatar.cc/300?img=33", "https://i.pravatar.cc/300?img=47"];
               return testimonialsContent.items.map((testimonial, i) => {
@@ -712,7 +712,7 @@ const Landing = () => {
                 return (
                   <motion.div
                     key={`${testimonial.name}-${i}`}
-                    className="w-[224px] shrink-0"
+                    className="basis-full sm:basis-[calc(50%-0.75rem)] lg:basis-[calc(33.333%-1rem)]"
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.15 }}
@@ -810,8 +810,8 @@ const Landing = () => {
                     key={i}
                     className="absolute"
                     style={{ left: `calc(50% + ${p.x}px)`, top: p.y }}
-                    initial={{ opacity: 0, scale: 0, y: 30 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0, rotate: p.rot }}
+                    initial={{ opacity: 0, scale: 0, x: -p.x, y: -p.y }}
+                    whileInView={{ opacity: 1, scale: 1, x: 0, y: 0, rotate: p.rot }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.1 + i * 0.04, duration: 0.5, type: "spring", stiffness: 250, damping: 15 }}
                   >
