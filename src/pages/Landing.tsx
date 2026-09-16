@@ -520,7 +520,7 @@ const Landing = () => {
       </section>
 
       {/* Upcoming events showcase */}
-      <section className="py-20 lg:py-28 bg-muted/40">
+      <section className="py-24 lg:py-32 bg-muted/40">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4">
             <div className="max-w-xl">

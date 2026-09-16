@@ -32,10 +32,10 @@ const TemplatePreview = (p: TemplatePreviewProps) => {
         background,
         color: foreground,
         fontFamily: "DM Sans, system-ui, sans-serif",
-        padding: 20,
+        padding: 24,
         display: "grid",
         gridTemplateColumns: "minmax(0, 1fr) 150px",
-        gap: 20,
+        gap: 24,
         alignItems: "center",
       }}
     >
