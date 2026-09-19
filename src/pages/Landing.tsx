@@ -690,7 +690,7 @@ const Landing = () => {
       </section>
 
       {/* Social proof */}
-      <section className="py-20 lg:py-28">
+      <section className="py-20 lg:py-28 bg-blue-300">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
             className="text-center mb-14"
