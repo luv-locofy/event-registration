@@ -385,7 +385,7 @@ const Landing = () => {
           </Link>
           <div className="flex items-center gap-3">
             <Button variant="ghost" className="text-sm font-medium" asChild>
-              <Link to="/auth">Log in</Link>
+              <Link to="/auth">Loged in</Link>
             </Button>
             <Button className="hidden sm:inline-flex text-sm font-semibold" asChild>
               <Link to="/auth">Sign up</Link>
