@@ -1,4 +1,5 @@
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo, useEffect, type CSSProperties } from "react";
+import "./Register.css";
 import { incrementLinkClick } from "@/hooks/useTrackingLinks";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -77,104 +78,91 @@ const TicketPicker = ({
   quantity: number;
   onQuantityChange: (n: number) => void;
   brandColor: string;
-}) => (
-  <div className="space-y-2.5">
-    <div className="flex items-baseline justify-between">
-      <Label className="text-xs font-semibold tracking-[0.12em] uppercase text-muted-foreground">
-        Choose your ticket
-      </Label>
-      <span className="text-[10px] text-muted-foreground">{tickets.length} available</span>
-    </div>
-    <div className="space-y-2">
-      {tickets.map((t) => {
-        const selected = selectedId === t.id;
-        return (
-          <motion.button
-            type="button"
-            key={t.id}
-            onClick={() => onSelect(t.id)}
-            whileTap={{ scale: 0.99 }}
-            className={`group w-full text-left relative overflow-hidden rounded-2xl p-4 transition-all ${
-              selected ? "bg-card" : "bg-muted/40 hover:bg-muted/70"
-            }`}
-            style={selected ? {
-              boxShadow: `0 0 0 1.5px ${brandColor}, 0 18px 40px -20px ${brandColor}66`,
-            } : undefined}
-          >
-            {selected && (
-              <motion.div
-                layoutId="ticket-glow"
-                className="absolute inset-0 -z-10 opacity-60"
-                style={{ background: `radial-gradient(circle at 0% 50%, ${brandColor}1a, transparent 60%)` }}
-              />
-            )}
-            <div className="flex items-center gap-3.5">
-              <div
-                className={`shrink-0 w-10 h-10 rounded-full inline-flex items-center justify-center transition ${
-                  selected ? "text-white" : t.is_vip ? "text-foreground bg-background" : "bg-background text-muted-foreground"
-                }`}
-                style={selected ? {
-                  background: t.is_vip
-                    ? `linear-gradient(135deg, ${brandColor}, hsl(265 90% 62%))`
-                    : brandColor,
-                } : undefined}
+}) => {
+  const selectedTicket = tickets.find((ticket) => ticket.id === selectedId);
+
+  return (
+    <section
+      className="ticket-picker rounded-3xl bg-background p-4 text-foreground"
+      style={{
+        "--ticket-accent": brandColor,
+        backgroundImage: `radial-gradient(ellipse at 95% 0%, color-mix(in srgb, ${brandColor} 9%, transparent), transparent 65%)`,
+      } as CSSProperties}
+      aria-label="Choose your ticket"
+    >
+      <div className="mb-5 flex min-w-0 flex-wrap items-center justify-between gap-2">
+        <h2 className="text-2xl font-bold leading-8 tracking-tight">Choose your ticket</h2>
+        <span className="text-xs text-muted-foreground">{tickets.length} available</span>
+      </div>
+      <div className="ticket-picker-layout grid overflow-hidden rounded-2xl border border-border bg-card">
+        <div
+          className="ticket-picker-menu gap-2 p-2"
+          style={{ background: `color-mix(in srgb, ${brandColor} 4%, hsl(var(--background)))` }}
+          role="group"
+          aria-label="Ticket types"
+        >
+          {tickets.map((ticket) => {
+            const selected = ticket.id === selectedId;
+            return (
+              <button
+                key={ticket.id}
+                type="button"
+                onClick={() => onSelect(ticket.id)}
+                aria-pressed={selected}
+                className="ticket-picker-option flex min-h-10 min-w-0 items-center justify-between gap-3 rounded-lg border border-border bg-card p-2 text-left text-xs hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ticket-accent)]"
+                style={selected ? { borderColor: brandColor } : undefined}
               >
-                {t.is_vip ? <Crown className="w-4 h-4" /> : <TicketIcon className="w-4 h-4" />}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-display font-semibold tracking-[-0.01em] truncate">
-                    {t.name || "Untitled"}
-                  </span>
-                  {t.is_vip && (
-                    <span
-                      className="text-[9px] uppercase tracking-[0.2em] font-bold px-1.5 py-0.5 rounded-full"
-                      style={{ color: brandColor, background: `${brandColor}1a` }}
-                    >
-                      VIP
-                    </span>
+                <span className="min-w-0 break-words">{ticket.name || "Untitled"}</span>
+                <span
+                  className="ticket-picker-mark h-5 w-5 shrink-0 items-center justify-center rounded-full border border-muted-foreground"
+                  style={selected ? { background: brandColor, borderColor: brandColor } : undefined}
+                  aria-hidden="true"
+                >
+                  {selected && <Check className="h-3 w-3 text-white" />}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="ticket-picker-detail flex min-h-[180px] min-w-0 flex-col justify-between gap-4 p-4">
+          {selectedTicket ? (
+            <>
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <h3 className="break-words text-lg font-semibold leading-6 tracking-tight">
+                    {selectedTicket.name || "Untitled"}
+                  </h3>
+                  {selectedTicket.description && (
+                    <p className="mt-1 whitespace-pre-line break-words text-xs leading-5 text-muted-foreground">
+                      {selectedTicket.description}
+                    </p>
                   )}
                 </div>
-                {t.description && (
-                  <p className="text-xs text-muted-foreground truncate mt-0.5">{t.description}</p>
-                )}
+                {selectedTicket.is_vip
+                  ? <Crown className="h-8 w-8 shrink-0" style={{ color: brandColor }} aria-label="VIP" />
+                  : <TicketIcon className="h-8 w-8 shrink-0" style={{ color: brandColor }} aria-hidden="true" />}
               </div>
-              <div className="text-right shrink-0 flex items-center gap-3">
+              <div className="flex min-w-0 flex-wrap items-center justify-between gap-4">
                 <div>
-                  <div className="text-base font-display font-bold tabular-nums tracking-[-0.01em]">
-                    {formatTicketPrice(t.price, t.currency || "USD")}
+                  <div className="text-[28px] font-bold leading-9 tracking-tight tabular-nums">
+                    {formatTicketPrice(selectedTicket.price, selectedTicket.currency || "USD")}
                   </div>
+                  <p className="text-xs leading-5 text-muted-foreground">Per ticket</p>
                 </div>
-                <div
-                  className={`shrink-0 w-5 h-5 rounded-full inline-flex items-center justify-center transition ${
-                    selected ? "scale-100" : "scale-0"
-                  }`}
-                  style={{ background: brandColor }}
-                >
-                  <Check className="w-3 h-3 text-white" strokeWidth={3} />
-                </div>
-              </div>
-            </div>
-
-            {selected && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="overflow-hidden"
-              >
-                <div className="mt-3.5 pt-3.5 border-t border-border/60 flex items-center justify-between">
-                  <span className="text-xs font-medium text-muted-foreground">Quantity</span>
+                <div className="flex flex-wrap items-center gap-4">
+                  <span className="text-xs text-muted-foreground">Quantity</span>
                   <QuantityStepper value={quantity} onChange={onQuantityChange} brandColor={brandColor} />
                 </div>
-              </motion.div>
-            )}
-          </motion.button>
-        );
-      })}
-    </div>
-  </div>
-);
+              </div>
+            </>
+          ) : (
+            <p className="text-sm text-muted-foreground">Select a ticket to see its details.</p>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 
 // ─── Helper: format event date/time with timezone ───
