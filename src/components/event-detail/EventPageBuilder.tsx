@@ -28,7 +28,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
 const TYPE_META: Record<ModuleType, { label: string }> = {
-  why_attend: { label: "Why attend" },
+  why_attend: { label: "Why attend aksjdbaksjbda" },
   schedule: { label: "Schedule" },
   speakers: { label: "Speakers" },
   location: { label: "Location" },
@@ -254,7 +254,7 @@ export default function EventPageBuilder({ eventId, eventSlug, eventName, descri
 
   return (
     <div className="grid lg:grid-cols-2 gap-5">
-      <div className="bg-card rounded-xl p-5 sm:p-6 space-y-4">
+      <div className="bg-background rounded-3xl p-5 sm:p-6 space-y-4 bg-none shadow-[0px_4px_14px_-4px_rgba(0,_0,_0,_0.25)] blur-none">
         <div className="flex items-center justify-between gap-2">
           <h3 className="font-display font-semibold">Page sections</h3>
           <div className="flex items-center gap-2">
@@ -282,7 +282,7 @@ export default function EventPageBuilder({ eventId, eventSlug, eventName, descri
             <Badge variant="outline" className="rounded-full">{modules.length} {modules.length === 1 ? "section" : "sections"}</Badge>
           </div>
         </div>
-        <p className="text-xs text-muted-foreground">Drag to reorder. Toggle visibility per section.</p>
+        <p className="text-xs text-muted-foreground italic">Drag to reorder. Choose which pages you want.</p>
 
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={modules.map((m) => m.id)} strategy={verticalListSortingStrategy}>
@@ -316,7 +316,7 @@ export default function EventPageBuilder({ eventId, eventSlug, eventName, descri
 
         <div className="space-y-2 pt-2">
           <div className="flex gap-2">
-            <Select value={addType} onValueChange={(v) => setAddType(v as ModuleType)}>
+            <Select className="rounded-md" value={addType} onValueChange={(v) => setAddType(v as ModuleType)}>
               <SelectTrigger className="rounded-full"><SelectValue /></SelectTrigger>
               <SelectContent>
                 {(Object.keys(TYPE_META) as ModuleType[]).map((t) => (
@@ -450,11 +450,12 @@ function SortableRow({ module: m, expanded, onToggleExpand, coverImageUrl, onReg
     <div ref={setNodeRef} style={style} className="rounded-xl bg-muted/50 overflow-hidden">
       <div className="flex items-center gap-2 p-3">
         <button {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing touch-none p-1 text-muted-foreground hover:text-foreground">
-          <GripVertical className="w-4 h-4" />
+          <GripVertical className="w-4 h-4 opacity-100" />
         </button>
         <span className="shrink-0"><SectionIcon type={m.type} color="hsl(var(--foreground))" size={18} animated={false} /></span>
         <span className="text-sm font-medium flex-1 truncate">{m.content?.heading || meta.label}</span>
         <Switch
+          className="data-[state=checked]:bg-primary"
           checked={m.enabled}
           onCheckedChange={(v) => update.mutate({ id: m.id, event_id: m.event_id, enabled: v })}
         />
