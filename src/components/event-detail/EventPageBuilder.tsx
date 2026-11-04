@@ -28,7 +28,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
 const TYPE_META: Record<ModuleType, { label: string }> = {
-  why_attend: { label: "Why attend aksjdbaksjbda" },
+  why_attend: { label: "Why attend this event" },
   schedule: { label: "Schedule" },
   speakers: { label: "Speakers" },
   location: { label: "Location" },
