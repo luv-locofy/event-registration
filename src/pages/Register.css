@@ -1,0 +1,46 @@
+.ticket-picker {
+  container-type: inline-size;
+}
+
+.ticket-picker-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ticket-picker-menu {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ticket-picker-option {
+  flex: 1 1 80px;
+}
+
+.ticket-picker-mark {
+  display: none;
+}
+
+@container (min-width: 600px) {
+  .ticket-picker-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  }
+
+  .ticket-picker-menu {
+    display: grid;
+    align-content: start;
+    padding: 12px;
+  }
+
+  .ticket-picker-option {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .ticket-picker-mark {
+    display: inline-flex;
+  }
+
+  .ticket-picker-detail {
+    padding: 24px;
+    min-height: 216px;
+  }
+}
